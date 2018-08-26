@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: spring-boot-mongodb
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/just
+  profiles:
+    active: test
+server:
+  port: 8881
+  compression:
+    enabled: true #是否启用gzip压缩
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain #需要压缩的内容格式
+    min-response-size: 2048 #响应内容大于{min-response-size}字节时，才会压缩，默认：2048字节
+swagger:
+  enable: true
