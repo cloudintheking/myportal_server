@@ -23,10 +23,7 @@ import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @SpringBootTest
@@ -60,15 +57,18 @@ public class ArticleDaoImplTest {
 
     @Test
     public void save() {
-        ArticleParams params = new ArticleParams();
-        params.setId("5b80b494eb60270f7c80a13a");
-        Article article = this.articleService.findOne(params);
-        article.setTitle(null);
-//        List<Article> articles = article.getChilds();
-//        Article article1 = articles.get(0);
-//        article1.setTitle("2e324234");
-//        article.setChilds(articles);
-        articleService.save(article);
+//        ArticleParams params = new ArticleParams();
+//        params.setId("5b80b494eb60270f7c80a13a");
+//        Article article = this.articleService.findOne(params);
+//        article.setTitle(null);
+//        articleService.save(article);
+        co.fatboa.myportal.domain.entity.Test t = new co.fatboa.myportal.domain.entity.Test();
+        t.setTestAge("32");
+        t.setTestname("sfs");
+        t.setDate(new Date());
+        // this.mongoTemplate.insert(t);
+        co.fatboa.myportal.domain.entity.Test tt = this.mongoTemplate.findOne(Query.query(new Criteria().and("testAge").is("31")), co.fatboa.myportal.domain.entity.Test.class);
+        System.out.println(tt == null ? "空" : "不空");
     }
 
     @Test

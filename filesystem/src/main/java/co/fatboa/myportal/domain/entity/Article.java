@@ -21,17 +21,17 @@ import java.util.List;
 public class Article implements Serializable {
     @Id
     private String id;
-    @Field
+   // @Field
     private String title;
-    @Field
+//    @Field
     private String description;
     @Field("by_user")
     private String user;
-    @Field
+   // @Field
     private String url;
-    @Field
+  //  @Field
     private List<String> tags;
-    @Field
+  //  @Field
     private Number likes;
     @DBRef
     private List<Article> childs;
