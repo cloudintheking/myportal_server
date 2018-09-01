@@ -1,13 +1,9 @@
 spring:
-  application:
-    name: spring-boot-mongodb
   data:
     mongodb:
       uri: mongodb://localhost:27017/test
-  profiles:
-    active: test
 server:
-  port: 8882
+  port: 8881
   compression:
     enabled: true #是否启用gzip压缩
     mime-types: application/json,application/xml,text/html,text/xml,text/plain #需要压缩的内容格式
