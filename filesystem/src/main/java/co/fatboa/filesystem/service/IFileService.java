@@ -6,6 +6,7 @@ import com.mongodb.gridfs.GridFSDBFile;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +26,7 @@ public interface IFileService {
      * @param file
      * @return
      */
-    List<Map> save(MultipartFile... file) throws IOException;
+    List<Map> save(HttpServletRequest request, MultipartFile... file) throws IOException;
 
     /**
      * 查询单个文件

@@ -20,7 +20,7 @@ public class ZoneParam extends BaseQueryParam {
     @ApiModelProperty("展区样式")
     private String style;
     @ApiModelProperty("显示状态")
-    private String show;
+    private Boolean show;
     @ApiModelProperty("关联栏目id")
     private String category;
 
@@ -48,11 +48,11 @@ public class ZoneParam extends BaseQueryParam {
         this.style = style;
     }
 
-    public String getShow() {
+    public Boolean getShow() {
         return show;
     }
 
-    public void setShow(String show) {
+    public void setShow(Boolean show) {
         this.show = show;
     }
 

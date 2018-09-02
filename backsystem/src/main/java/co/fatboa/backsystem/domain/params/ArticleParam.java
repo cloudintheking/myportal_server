@@ -1,5 +1,6 @@
 package co.fatboa.backsystem.domain.params;
 
+import co.fatboa.core.domain.queryparams.BaseQueryParam;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -13,7 +14,7 @@ import java.util.Date;
  * @Version 1.0
  */
 @ApiModel("文章查询参数类")
-public class ArticleParam {
+public class ArticleParam extends BaseQueryParam {
     @ApiModelProperty("文章ID")
     private String id;
     @ApiModelProperty("文章标题")
@@ -23,9 +24,9 @@ public class ArticleParam {
     @ApiModelProperty("截止日期")
     private Date endDate;
     @ApiModelProperty("显示状态")
-    private String show;
+    private Boolean show;
     @ApiModelProperty("关联栏目")
-    private String refCategory;
+    private String category;
 
     public String getId() {
         return id;
@@ -59,19 +60,19 @@ public class ArticleParam {
         this.endDate = endDate;
     }
 
-    public String getShow() {
+    public Boolean getShow() {
         return show;
     }
 
-    public void setShow(String show) {
+    public void setShow(Boolean show) {
         this.show = show;
     }
 
-    public String getRefCategory() {
-        return refCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setRefCategory(String refCategory) {
-        this.refCategory = refCategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

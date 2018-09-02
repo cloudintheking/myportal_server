@@ -24,7 +24,7 @@ public class Category {
     private Integer level; //栏目等级
     private String style; //栏目样式
     private String route;// 路由
-    private String show; //是否显示 1：显示 0：不显示
+    private Boolean show; //是否显示 1：显示 0：不显示
     @DBRef
     private Category parent; // 父栏目
     @Transient
@@ -62,11 +62,11 @@ public class Category {
         this.style = style;
     }
 
-    public String getShow() {
+    public Boolean getShow() {
         return show;
     }
 
-    public void setShow(String show) {
+    public void setShow(Boolean show) {
         this.show = show;
     }
 

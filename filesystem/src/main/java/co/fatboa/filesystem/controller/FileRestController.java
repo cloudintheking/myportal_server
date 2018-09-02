@@ -48,7 +48,7 @@ public class FileRestController extends BaseController {
 
     @ApiOperation("文件文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public ResponseEntity<Map> upload(@ApiParam("二进制文件数据") @RequestParam List<MultipartFile> files) {
+    public ResponseEntity<Map> upload(@ApiParam("二进制文件数据") @RequestParam List<MultipartFile> files, HttpServletRequest request) {
         List<Map> gridFSFiles = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
         MultipartFile[] multipartFiles = new MultipartFile[files.size()];
@@ -56,7 +56,7 @@ public class FileRestController extends BaseController {
         try {
             map.put("status", 1);
             map.put("message", "上传成功");
-            map.put("data", this.fileService.save(multipartFiles));
+            map.put("data", this.fileService.save(request, multipartFiles));
         } catch (IOException e) {
             e.printStackTrace();
             LOGGER.error(e.getMessage());
@@ -129,7 +129,7 @@ public class FileRestController extends BaseController {
 
     @ApiOperation("时间格式反序列化测试")
     @RequestMapping(value = "/timereverse", method = RequestMethod.POST)
-    public ArticleParams timetestus(@RequestBody()@ApiParam("文章查询参数") ArticleParams article) {
+    public ArticleParams timetestus(@RequestBody() @ApiParam("文章查询参数") ArticleParams article) {
         return article;
     }
 }

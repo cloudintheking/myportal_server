@@ -25,14 +25,7 @@ public interface IBaseDao<T> {
      * @param ids
      */
     void delete(Serializable... ids) throws Exception;
-
-    /**
-     * 单删
-     *
-     * @param id
-     */
-    void delete(Serializable id) throws Exception;
-
+    
     /**
      * 多个查询
      *

@@ -14,9 +14,9 @@ public class ZoneDto {
     private String id; //展区id
     private String name; //展区名
     private String style; //展区样式
-    private String show; //是否显示 0：不显示 1：显示
-    private String width; //展区宽度比
-    private String pos; //展区位置
+    private Boolean show; //是否显示 0：不显示 1：显示
+    private Integer width; //展区宽度比
+    private Integer pos; //展区位置
     private String category; //关联栏目id
 
     public String getId() {
@@ -43,27 +43,27 @@ public class ZoneDto {
         this.style = style;
     }
 
-    public String getShow() {
+    public Boolean getShow() {
         return show;
     }
 
-    public void setShow(String show) {
+    public void setShow(Boolean show) {
         this.show = show;
     }
 
-    public String getWidth() {
+    public Integer getWidth() {
         return width;
     }
 
-    public void setWidth(String width) {
+    public void setWidth(Integer width) {
         this.width = width;
     }
 
-    public String getPos() {
+    public Integer getPos() {
         return pos;
     }
 
-    public void setPos(String pos) {
+    public void setPos(Integer pos) {
         this.pos = pos;
     }
 

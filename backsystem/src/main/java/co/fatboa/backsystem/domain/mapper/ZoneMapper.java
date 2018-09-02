@@ -27,7 +27,7 @@ public interface ZoneMapper {
             @Mapping(target = "category", source = "zone.category.id")
 
     })
-    public ZoneDto from(Zone zone);
+    ZoneDto from(Zone zone);
 
     @Mappings({
             @Mapping(target = "id", source = "dto.id"),
@@ -39,7 +39,7 @@ public interface ZoneMapper {
             @Mapping(target = "category.id", source = "dto.category")
 
     })
-    public Zone to(ZoneDto dto);
+    Zone to(ZoneDto dto);
 
     List<ZoneDto> fromLsit(List<Zone> zones);
 

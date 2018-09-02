@@ -2,6 +2,8 @@ package co.fatboa.core.Service;
 
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * @Auther: hl
  * @Date: 2018/9/1 18:55
@@ -11,13 +13,12 @@ import org.springframework.data.domain.Page;
  */
 
 /**
- *
- * @param <T> 实体类型
- * @param <D> DTO
- * @param <P> 参数类型
+ * @param <T>  实体类型
+ * @param <D>  DTO
+ * @param <P>  参数类型
  * @param <ID> id类型
  */
-public interface IBaseService<T, D, P,ID> {
+public interface IBaseService<T, D, P, ID> {
     /**
      * 新增
      *
@@ -43,12 +44,20 @@ public interface IBaseService<T, D, P,ID> {
     T findById(ID id) throws Exception;
 
     /**
-     * 批量查询
+     * 分页查询
      *
      * @param params
      * @return
      */
-    Page<T> findAll(P params);
+    Page<T> findByPage(P params);
+
+    /**
+     * 参数查询
+     *
+     * @param params
+     * @return
+     */
+    List<T> findAll(P params);
 
     /**
      * 批量删除
@@ -70,4 +79,5 @@ public interface IBaseService<T, D, P,ID> {
      * @param dto
      */
     void update(D dto) throws Exception;
+
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -46,18 +47,20 @@ public class FileServiceImpl implements IFileService {
      */
     @Override
 
-    public List<Map> save(MultipartFile... files) throws IOException {
+    public List<Map> save(HttpServletRequest request, MultipartFile... files) throws IOException {
         List<Map> gridFSFiles = new ArrayList<>();
         GridFSFile gfile;
         for (MultipartFile file : files) {
             Map<String, Object> map = new HashMap<>();
             String md5 = FileUtils.getFileMD5(file.getInputStream());
             GridFSDBFile gb = this.fileDao.findOne(Query.query(Criteria.where("md5").is(md5)));
-            if (gb == null) { // 文件不存在
+            if (gb == null) { // 文件不存在保存文件
                 gfile = this.fileDao.store(file.getInputStream(), file.getOriginalFilename());
                 map.put("id", gfile.getId().toString());
-            } else { //文件已存在
+                map.put("link", request.getServerName() + ":" + request.getServerPort() + "/japi/filesystem/getFile?id=" + gfile.getId().toString());
+            } else { //文件已存在,返回已有文件id
                 map.put("id", gb.getId().toString());
+                map.put("link", request.getServerName() + ":" + request.getServerPort() + "/japi/filesystem/getFile?id=" + gb.getId().toString());
             }
             gridFSFiles.add(map);
         }

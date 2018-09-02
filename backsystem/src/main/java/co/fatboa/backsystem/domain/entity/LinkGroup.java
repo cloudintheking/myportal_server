@@ -20,7 +20,6 @@ public class LinkGroup {
     @Id
     private String id;
     private String name; //链接组名
-    @DBRef
     private List<Link> links; //链接列组
 
 

@@ -53,25 +53,13 @@ public abstract class BaseDaoImpl<T> implements IBaseDao<T> {
     @Override
     public void delete(Serializable... ids) throws Exception {
         for (Serializable id : ids) {
-            delete(id);
-        }
-
-    }
-
-    /**
-     * 单删
-     *
-     * @param id
-     */
-    @Override
-    public void delete(Serializable id) throws Exception {
-        if (id != null) {
             T entity = this.mongoTemplate.findById(id, getEntityClass());
             if (entity == null) {
                 throw new Exception(id.toString());
             }
             this.mongoTemplate.remove(Query.query(Criteria.where("id").is(id)), getEntityClass());
         }
+
     }
 
     /**
