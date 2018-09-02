@@ -12,9 +12,18 @@ import lombok.Data;
  */
 @Data
 public class LinkDto {
+    private String id; //链接id
     private String name; //链接名
     private String url; //链接地址
     private String group; //链接组id
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

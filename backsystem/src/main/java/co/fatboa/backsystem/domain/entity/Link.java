@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Link {
     @Id
-    private String id;
+    private String id; //链接id
     private String name; //链接名
     private String url; //链接地址
     @DBRef

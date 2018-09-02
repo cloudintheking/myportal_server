@@ -52,16 +52,19 @@ public class FileServiceImpl implements IFileService {
         GridFSFile gfile;
         for (MultipartFile file : files) {
             Map<String, Object> map = new HashMap<>();
-            String md5 = FileUtils.getFileMD5(file.getInputStream());
-            GridFSDBFile gb = this.fileDao.findOne(Query.query(Criteria.where("md5").is(md5)));
-            if (gb == null) { // 文件不存在保存文件
-                gfile = this.fileDao.store(file.getInputStream(), file.getOriginalFilename());
-                map.put("id", gfile.getId().toString());
-                map.put("link", request.getServerName() + ":" + request.getServerPort() + "/japi/filesystem/getFile?id=" + gfile.getId().toString());
-            } else { //文件已存在,返回已有文件id
-                map.put("id", gb.getId().toString());
-                map.put("link", request.getServerName() + ":" + request.getServerPort() + "/japi/filesystem/getFile?id=" + gb.getId().toString());
-            }
+//            String md5 = FileUtils.getFileMD5(file.getInputStream());
+//            GridFSDBFile gb = this.fileDao.findOne(Query.query(Criteria.where("md5").is(md5)));
+//            if (gb == null) { // 文件不存在保存文件
+//                gfile = this.fileDao.store(file.getInputStream(), file.getOriginalFilename());
+//                map.put("id", gfile.getId().toString());
+//                map.put("link", request.getServerName() + ":" + request.getServerPort() + "/japi/filesystem/getFile?id=" + gfile.getId().toString());
+//            } else { //文件已存在,返回已有文件id
+//                map.put("id", gb.getId().toString());
+//                map.put("link", request.getServerName() + ":" + request.getServerPort() + "/japi/filesystem/getFile?id=" + gb.getId().toString());
+//            }
+            gfile = this.fileDao.store(file.getInputStream(), file.getOriginalFilename());
+            map.put("id", gfile.getId().toString());
+            map.put("link", request.getServerName() + ":" + request.getServerPort() + "/japi/filesystem/getFile?id=" + gfile.getId().toString());
             gridFSFiles.add(map);
         }
         return gridFSFiles;

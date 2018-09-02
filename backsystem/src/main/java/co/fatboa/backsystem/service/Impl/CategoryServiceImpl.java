@@ -107,8 +107,81 @@ public class CategoryServiceImpl implements ICategoryService {
         return parents;
     }
 
+
     /**
-     * 删除栏目下的子级栏目升级
+     * 单个查询
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public Category findOne(CategoryParam params) {
+        Query query = queryPackage(params);
+        Category categorie = this.categoryDao.findOne(query);
+        return categorie;
+    }
+
+    /**
+     * 根据ID查询
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Category findById(String id) throws Exception {
+        return this.categoryDao.findById(id);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public Page<Category> findByPage(CategoryParam params) {
+        Integer pageIndex = 0;
+        Integer pageSize = 10;
+        Query query = queryPackage(params);
+        Pageable pageable;
+        if (params.getPageIndex() != null) {
+            pageIndex = params.getPageIndex();
+        }
+        if (params.getPageSize() != null) {
+            pageSize = params.getPageSize();
+        }
+        pageable = new PageRequest(pageIndex, pageSize);
+        long count = this.categoryDao.count(query);
+        List<Category> categories = this.categoryDao.findAll(query.with(pageable));
+        return new PageImpl<Category>(categories, pageable, count);
+    }
+
+    /**
+     * 参数查询
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public List<Category> findAll(CategoryParam params) {
+        Query query = queryPackage(params);
+        return this.categoryDao.findAll(query);
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     */
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void delete(String... ids) throws Exception {
+        for (String id : ids) {
+            this.delete(id);
+        }
+    }
+    /**
+     * 删除栏目的子级栏目自动升级
      *
      * @param id         删除栏目的id
      * @param deleA      是否删除被关联的文章
@@ -154,79 +227,6 @@ public class CategoryServiceImpl implements ICategoryService {
 
 
     /**
-     * 单个查询
-     *
-     * @param params
-     * @return
-     */
-    @Override
-    public Category findOne(CategoryParam params) {
-        Query query = querypackage(params);
-        Category categorie = this.categoryDao.findOne(query);
-        return categorie;
-    }
-
-    /**
-     * 根据ID查询
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public Category findById(String id) throws Exception {
-        return this.categoryDao.findById(id);
-    }
-
-    /**
-     * 分页查询
-     *
-     * @param params
-     * @return
-     */
-    @Override
-    public Page<Category> findByPage(CategoryParam params) {
-        Integer pageIndex = 0;
-        Integer pageSize = 10;
-        Query query = querypackage(params);
-        Pageable pageable;
-        if (params.getPageIndex() != null) {
-            pageIndex = params.getPageIndex();
-        }
-        if (params.getPageSize() != null) {
-            pageSize = params.getPageSize();
-        }
-        pageable = new PageRequest(pageIndex, pageSize);
-        long count = this.categoryDao.count(query);
-        List<Category> categories = this.categoryDao.findAll(query.with(pageable));
-        return new PageImpl<Category>(categories, pageable, count);
-    }
-
-    /**
-     * 参数查询
-     *
-     * @param params
-     * @return
-     */
-    @Override
-    public List<Category> findAll(CategoryParam params) {
-        Query query = querypackage(params);
-        return this.categoryDao.findAll(query);
-    }
-
-    /**
-     * 批量删除
-     *
-     * @param ids
-     */
-    @Transactional(rollbackFor = {Exception.class})
-    @Override
-    public void delete(String... ids) throws Exception {
-        for (String id : ids) {
-            this.delete(id);
-        }
-    }
-
-    /**
      * 单删
      *
      * @param id
@@ -234,7 +234,6 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public void delete(String id) throws Exception {
-        List<Article> articles = this.articleDao.findAll(Query.query(Criteria.where("category.$id").is(new ObjectId())));
         this.categoryDao.delete(id);
     }
 
@@ -291,7 +290,7 @@ public class CategoryServiceImpl implements ICategoryService {
      * @param params
      * @return
      */
-    public Query querypackage(CategoryParam params) {
+    public Query queryPackage(CategoryParam params) {
 
         Query query = new Query();
         Sort sort;
@@ -311,8 +310,8 @@ public class CategoryServiceImpl implements ICategoryService {
         }
 
         if (params.getSortFiled() != null && params.getSortDirection() != null) {
-            if (params.getSortDirection().equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, params.getSortFiled());
+            if (params.getSortDirection().equals("asc")) {
+                sort = new Sort(Sort.Direction.ASC, params.getSortFiled());
                 query.with(sort);
             } else if (params.getSortDirection().equals("desc")) {
                 sort = new Sort(Sort.Direction.DESC, params.getSortFiled());

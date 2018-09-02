@@ -5,16 +5,17 @@ import co.fatboa.backsystem.dao.ICategoryDao;
 import co.fatboa.backsystem.domain.dto.ArticleDto;
 import co.fatboa.backsystem.domain.entity.Article;
 import co.fatboa.backsystem.domain.entity.Category;
-import co.fatboa.backsystem.domain.entity.Zone;
 import co.fatboa.backsystem.domain.mapper.ArticleMapper;
 import co.fatboa.backsystem.domain.params.ArticleParam;
 import co.fatboa.backsystem.service.IArticleService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -35,6 +36,10 @@ public class ArticleServiceImpl implements IArticleService {
     private ICategoryDao categoryDao;
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private MongoTemplate mongoTemplate;
+    @Autowired
+    private GridFsTemplate gridFsTemplate;
 
     /**
      * 新增
@@ -45,18 +50,21 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public ArticleDto save(ArticleDto dto) throws Exception {
         Article article = articleMapper.to(dto);
-        if (dto.getCategory() == null && dto.getCategory().trim().isEmpty()) {
+        if (dto.getCategory() == null || dto.getCategory().trim().isEmpty()) {
             throw new Exception("新增文章时，必须关联栏目id");
         } else {
             Category category = this.categoryDao.findById(dto.getCategory().trim());
             if (category == null) {
-                throw new Exception("关联兰id:" + dto.getCategory().trim() + "不存在");
+                throw new Exception("关联栏目id:" + dto.getCategory().trim() + "不存在");
             }
             article.setCategory(category);
         }
         article.setId(null);//防止前端误传id
         article.setDate(new Date());
         this.articleDao.save(article);
+        if (article.getCover() != null && !article.getCover().trim().isEmpty()) {
+            this.mongoTemplate.upsert(Query.query(Criteria.where("_id").is(new ObjectId(article.getCover()))), new Update().set("use", true), "fs.files");//标记该文件被引用，用于垃圾文件清理
+        }
         return this.articleMapper.from(article);
     }
 
@@ -127,7 +135,10 @@ public class ArticleServiceImpl implements IArticleService {
      */
     @Override
     public void delete(String... ids) throws Exception {
-        this.articleDao.delete(ids);
+        for (String id : ids) {
+            this.delete(id);
+        }
+
     }
 
     /**
@@ -137,6 +148,8 @@ public class ArticleServiceImpl implements IArticleService {
      */
     @Override
     public void delete(String id) throws Exception {
+        Article article = this.articleDao.findById(id);
+        this.gridFsTemplate.delete(Query.query(Criteria.where("_id").is(new ObjectId(article.getCover()))));//删除封面文件
         this.articleDao.delete(id);
     }
 
@@ -178,6 +191,7 @@ public class ArticleServiceImpl implements IArticleService {
         }
         if (dto.getCover() != null) {
             update.set("cover", dto.getCover());
+            this.mongoTemplate.upsert(Query.query(Criteria.where("_id").is(new ObjectId(dto.getCover()))), new Update().set("use", true), "fs.files");//标记该文件被引用，用于垃圾文件清理
         }
         this.articleDao.update(query, update);
     }
@@ -211,8 +225,8 @@ public class ArticleServiceImpl implements IArticleService {
             criteria.and("date").lte(param.getEndDate());
         }
         if (param.getSortDirection() != null && param.getSortFiled() != null) {
-            if (param.getSortDirection().equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, param.getSortFiled());
+            if (param.getSortDirection().equals("asc")) {
+                sort = new Sort(Sort.Direction.ASC, param.getSortFiled());
                 query.with(sort);
             } else if (param.getSortDirection().equals("desc")) {
                 sort = new Sort(Sort.Direction.DESC, param.getSortFiled());

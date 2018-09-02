@@ -209,8 +209,8 @@ public class ZoneServiceImpl implements IZoneService {
             criteria.and("style").is(param.getStyle());
         }
         if (param.getSortDirection() != null && param.getSortFiled() != null) {
-            if (param.getSortDirection().equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, param.getSortFiled());
+            if (param.getSortDirection().equals("asc")) {
+                sort = new Sort(Sort.Direction.ASC, param.getSortFiled());
                 query.with(sort);
             } else if (param.getSortDirection().equals("desc")) {
                 sort = new Sort(Sort.Direction.DESC, param.getSortFiled());

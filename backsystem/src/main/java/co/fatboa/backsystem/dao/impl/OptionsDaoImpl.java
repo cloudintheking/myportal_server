@@ -1,7 +1,7 @@
 package co.fatboa.backsystem.dao.impl;
 
 import co.fatboa.backsystem.dao.IOptionsDao;
-import co.fatboa.backsystem.domain.entity.Options;
+import co.fatboa.backsystem.domain.entity.Option;
 import co.fatboa.core.dao.Impl.BaseDaoImpl;
 import org.springframework.stereotype.Repository;
 
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Repository;
  * @Version 1.0
  */
 @Repository
-public class OptionsDaoImpl extends BaseDaoImpl<Options> implements IOptionsDao {
+public class OptionsDaoImpl extends BaseDaoImpl<Option> implements IOptionsDao {
     /**
      * 获取泛型参数的类
      *
      * @return
      */
     @Override
-    protected Class<Options> getEntityClass() {
-        return Options.class;
+    protected Class<Option> getEntityClass() {
+        return Option.class;
     }
 }

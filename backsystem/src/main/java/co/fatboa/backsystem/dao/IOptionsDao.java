@@ -1,6 +1,6 @@
 package co.fatboa.backsystem.dao;
 
-import co.fatboa.backsystem.domain.entity.Options;
+import co.fatboa.backsystem.domain.entity.Option;
 import co.fatboa.core.dao.IBaseDao;
 
 /**
@@ -10,5 +10,5 @@ import co.fatboa.core.dao.IBaseDao;
  * @Modified By:
  * @Version 1.0
  */
-public interface IOptionsDao extends IBaseDao<Options> {
+public interface IOptionsDao extends IBaseDao<Option> {
 }

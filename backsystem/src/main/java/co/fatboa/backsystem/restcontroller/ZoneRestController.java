@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.crypto.MacSpi;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +64,7 @@ public class ZoneRestController extends BaseController<Zone> {
 
     @ApiOperation("根据id查询")
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
-    public ResponseEntity<Map> findById(@RequestParam(required = true) @ApiParam("首页展区查询参数id") String id) {
+    public ResponseEntity<Map> findById(@RequestParam(required = true) @ApiParam("首页展区id") String id) {
         Zone zone = null;
         try {
             zone = this.zoneService.findById(id);

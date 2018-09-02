@@ -48,7 +48,14 @@ public class ArticleDto {
     }
 
     public String getPreview() {
-        return preview;
+        String noHtml = this.content.replaceAll("[\t\n]*<", "<")
+                .replaceAll(">[\t\n]*", ">")
+                .replaceAll("<.*?>", "")
+                .replaceAll("&[a-z]{1,};", " ")
+                .replaceAll("[ ]{1,}", " ");
+        String p = noHtml.substring(0, Math.min(100, noHtml.length()));
+        p += "...";
+        return p;
     }
 
     public void setPreview(String preview) {
