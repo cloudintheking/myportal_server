@@ -4,6 +4,7 @@ import co.fatboa.backsystem.domain.dto.LinkDto;
 import co.fatboa.backsystem.domain.entity.Link;
 import co.fatboa.backsystem.domain.params.LinkParam;
 import co.fatboa.core.Service.IBaseService;
+import org.springframework.stereotype.Service;
 
 /**
  * @Auther: hl

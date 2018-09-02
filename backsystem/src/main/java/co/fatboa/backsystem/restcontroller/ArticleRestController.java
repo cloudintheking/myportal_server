@@ -1,12 +1,8 @@
 package co.fatboa.backsystem.restcontroller;
 
-import co.fatboa.backsystem.dao.IArticleDao;
 import co.fatboa.backsystem.domain.dto.ArticleDto;
-import co.fatboa.backsystem.domain.dto.ZoneDto;
 import co.fatboa.backsystem.domain.entity.Article;
-import co.fatboa.backsystem.domain.entity.Zone;
 import co.fatboa.backsystem.domain.params.ArticleParam;
-import co.fatboa.backsystem.domain.params.ZoneParam;
 import co.fatboa.backsystem.service.IArticleService;
 import co.fatboa.core.restcontroller.BaseController;
 import io.swagger.annotations.Api;
@@ -90,7 +86,7 @@ public class ArticleRestController extends BaseController<Article> {
             logger.error(e.getMessage());
             return new ResponseEntity<Map>(errorResult("更新失败"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Map>(successResult(null, "更新成功"), HttpStatus.OK);
+        return new ResponseEntity<Map>(successResult(articleDto, "更新成功"), HttpStatus.OK);
     }
 
     @ApiOperation("删除")

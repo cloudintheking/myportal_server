@@ -1,9 +1,7 @@
-package co.fatboa.filesystem.controller;
+package co.fatboa.filesystem.restcontroller;
 
 
 import co.fatboa.core.restcontroller.BaseController;
-import co.fatboa.filesystem.domain.entity.Article;
-import co.fatboa.filesystem.domain.params.ArticleParams;
 import co.fatboa.filesystem.domain.params.FileParams;
 import co.fatboa.filesystem.service.IFileService;
 
@@ -114,22 +112,5 @@ public class FileRestController extends BaseController {
             LOGGER.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
-    }
-
-    @ApiOperation("时间格式序列化测试")
-    @RequestMapping(value = "/times", method = RequestMethod.GET)
-    public Article timetest() {
-        Article article = new Article();
-        article.setDescription("core");
-        article.setLikes(8);
-        article.setTitle("cccc");
-        article.setDate(new Date());
-        return article;
-    }
-
-    @ApiOperation("时间格式反序列化测试")
-    @RequestMapping(value = "/timereverse", method = RequestMethod.POST)
-    public ArticleParams timetestus(@RequestBody() @ApiParam("文章查询参数") ArticleParams article) {
-        return article;
     }
 }

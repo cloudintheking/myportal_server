@@ -40,6 +40,10 @@ public class LinkGroupService implements ILinkGroupService {
 
     public LinkGroup save(LinkGroup group) throws Exception {
         group.setId(null); //防止前端误传id
+        LinkGroup isgroup = this.linkGroupDao.findOne(Query.query(Criteria.where("name").is(group.getName().trim())));
+        if (isgroup != null) {
+            throw new Exception("name=" + group.getName().trim() + "的链接已存在");
+        }
         this.linkGroupDao.save(group);
         return group;
     }

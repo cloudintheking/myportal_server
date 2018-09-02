@@ -1,6 +1,5 @@
 package co.fatboa.backsystem.domain.params;
 
-import co.fatboa.core.domain.queryparams.BaseQueryParam;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,7 +11,7 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class OptionParam extends BaseQueryParam {
+public class OptionParam  {
     @ApiModelProperty("配置id")
     private String id;
     @ApiModelProperty("删除顶部图片id")

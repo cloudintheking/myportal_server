@@ -3,7 +3,6 @@ package co.fatboa.filesystem.service.impl;
 import co.fatboa.filesystem.dao.IFileDao;
 import co.fatboa.filesystem.domain.params.FileParams;
 import co.fatboa.filesystem.service.IFileService;
-import co.fatboa.filesystem.utils.FileUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

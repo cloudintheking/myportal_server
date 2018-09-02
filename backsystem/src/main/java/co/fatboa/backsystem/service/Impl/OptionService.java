@@ -52,7 +52,7 @@ public class OptionService implements IOptionService {
     @Override
     public void update(OptionParam param) throws Exception {
         Query query = new Query();
-        if (param.getId() == null || !param.getId().trim().isEmpty()) {
+        if (param.getId() == null || param.getId().trim().isEmpty()) {
             throw new Exception("更新配置时，id不能为空");
         } else {
             if (this.optionsDao.findById(param.getId().trim()) == null) {

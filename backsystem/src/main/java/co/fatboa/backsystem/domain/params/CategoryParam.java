@@ -3,7 +3,6 @@ package co.fatboa.backsystem.domain.params;
 import co.fatboa.core.domain.queryparams.BaseQueryParam;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.data.domain.Sort;
 
 /**
  * @Auther: hl
