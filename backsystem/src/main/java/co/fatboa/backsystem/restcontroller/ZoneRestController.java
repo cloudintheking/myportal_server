@@ -86,14 +86,14 @@ public class ZoneRestController extends BaseController<Zone> {
             logger.error(e.getMessage());
             return new ResponseEntity<Map>(errorResult("更新失败"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Map>(successResult(null, "查询成功"), HttpStatus.OK);
+        return new ResponseEntity<Map>(successResult(null, "更新成功"), HttpStatus.OK);
     }
 
     @ApiOperation("删除")
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public ResponseEntity<Map> delete(@RequestParam String... ids) {
+    public ResponseEntity<Map> delete(@RequestParam(required =true ) @ApiParam("首页展区id") String... id) {
         try {
-            this.zoneService.delete(ids);
+            this.zoneService.delete(id);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("该id:" + e.getMessage() + "不存在,停止删除");

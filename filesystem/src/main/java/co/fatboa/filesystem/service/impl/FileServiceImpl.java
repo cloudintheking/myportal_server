@@ -63,7 +63,7 @@ public class FileServiceImpl implements IFileService {
 //            }
             gfile = this.fileDao.store(file.getInputStream(), file.getOriginalFilename());
             map.put("id", gfile.getId().toString());
-            map.put("link", request.getServerName() + ":" + request.getServerPort() + "/japi/filesystem/getFile?id=" + gfile.getId().toString());
+            map.put("link", "http://" + request.getServerName() + ":" + request.getServerPort() + "/japi/filesystem/getFile?id=" + gfile.getId().toString());
             gridFSFiles.add(map);
         }
         return gridFSFiles;

@@ -18,7 +18,7 @@ public class Zone {
     @Id
     private String id; //展区id
     private String name; //展区名
-    private String style; //展区样式
+    private Integer style; //展区样式
     private Boolean show; //是否显示 0：不显示 1：显示
     private Integer width; //展区宽度比
     private Integer pos; //展区位置
@@ -41,11 +41,11 @@ public class Zone {
         this.name = name;
     }
 
-    public String getStyle() {
+    public Integer getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(Integer style) {
         this.style = style;
     }
 

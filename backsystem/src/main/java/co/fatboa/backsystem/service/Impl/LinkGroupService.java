@@ -169,13 +169,28 @@ public class LinkGroupService implements ILinkGroupService {
         if (param.getName() != null) {
             query.addCriteria(Criteria.where("name").regex(param.getName()));
         }
-        if (param.getSortDirection() != null && param.getSortFiled() != null) {
-            if (param.getSortDirection().equals("asc")) {
-                query.with(new Sort(Sort.Direction.ASC, param.getSortFiled()));
-            } else if (param.getSortDirection().equals("desc")) {
-                query.with(new Sort(Sort.Direction.DESC, param.getSortFiled()));
+        if (param.getSortOrder() != null && param.getSortField() != null) {
+            if (param.getSortOrder().equals("asc")) {
+                query.with(new Sort(Sort.Direction.ASC, param.getSortField()));
+            } else if (param.getSortOrder().equals("desc")) {
+                query.with(new Sort(Sort.Direction.DESC, param.getSortField()));
             }
         }
         return query;
+    }
+
+    /**
+     * 返回链接组集合并携带链接信息
+     *
+     * @param params
+     * @return
+     */
+    @Override
+    public List<LinkGroup> findAllwithLinks(LinkGroupParam params) {
+        List<LinkGroup> linkGroups = this.linkGroupDao.findAll(queryPackage(params));
+        for (LinkGroup linkGroup : linkGroups) {
+            linkGroup.setLinks(this.linkDao.findAll(Query.query(Criteria.where("group.$id").is(new ObjectId(linkGroup.getId())))));
+        }
+        return linkGroups;
     }
 }

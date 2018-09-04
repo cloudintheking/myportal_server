@@ -107,8 +107,8 @@ public class CategoryRestController extends BaseController<Category> {
     @ApiOperation("删除栏目")
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ResponseEntity<Map> delete(@RequestParam(required = true) @ApiParam("删除栏目的id") String id,
-                                      @RequestParam(required = false, defaultValue = "true") @ApiParam("是否删除关联文章") Boolean delA,
-                                      @RequestParam(required = false, defaultValue = "true") @ApiParam("是否删除关联首页展区") Boolean delZ,
+                                      @RequestParam(required = false, defaultValue = "true") @ApiParam("是否删除关联文章") boolean delA,
+                                      @RequestParam(required = false, defaultValue = "true") @ApiParam("是否删除关联首页展区") boolean delZ,
                                       @RequestParam(required = false) @ApiParam("文章新的关联栏目id") String articleRef,
                                       @RequestParam(required = false) @ApiParam("首页展区新的关联栏目id") String zoneRef) {
         try {

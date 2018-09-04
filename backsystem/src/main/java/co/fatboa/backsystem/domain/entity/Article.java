@@ -21,6 +21,7 @@ public class Article {
     private String id; //文章id
     private String title; //文章标题
     private String content; //文章内容
+    private String preview;// 预览
     private String cover; //文章封面
     private Date date; //发布时间
     private Boolean show; //是否显示
@@ -81,5 +82,13 @@ public class Article {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getPreview() {
+        return preview;
+    }
+
+    public void setPreview(String preview) {
+        this.preview = preview;
     }
 }

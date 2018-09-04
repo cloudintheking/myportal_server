@@ -44,7 +44,7 @@ public class FileRestController extends BaseController {
     @Autowired
     private IFileService fileService;
 
-    @ApiOperation("文件文件上传")
+    @ApiOperation("文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public ResponseEntity<Map> upload(@ApiParam("二进制文件数据") @RequestParam List<MultipartFile> files, HttpServletRequest request) {
         List<Map> gridFSFiles = new ArrayList<>();
@@ -65,24 +65,40 @@ public class FileRestController extends BaseController {
         return new ResponseEntity<Map>(map, HttpStatus.OK);
     }
 
-    @ApiOperation("多个文件删除")
-    @RequestMapping(value = "/deleteBatch", method = RequestMethod.GET)
-    public ResponseEntity<Map> delete(@ApiParam("文件id") @RequestParam List<String> ids) {
+    @ApiOperation("富文本文件上传")
+    @RequestMapping(value = "/richUpload", method = RequestMethod.POST)
+    public ResponseEntity<Object> richUpload(@ApiParam("二进制文件数据") @RequestParam List<MultipartFile> files, HttpServletRequest request) {
+        List<Map> gridFSFiles = new ArrayList<>();
         Map<String, Object> map = new HashMap<>();
-        String[] idss = new String[ids.size()];
-        ids.toArray(idss);
+        MultipartFile[] multipartFiles = new MultipartFile[files.size()];
+        files.toArray(multipartFiles);
+        List<Map> result = null;
         try {
-            this.fileService.delete(idss);
-        } catch (Exception e) {
+            result = this.fileService.save(request, multipartFiles);
+        } catch (IOException e) {
             e.printStackTrace();
             LOGGER.error(e.getMessage());
             map.put("status", 0);
-            map.put("message", e.getMessage());
-            return new ResponseEntity<Map>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+            map.put("message", "上传失败");
+            return new ResponseEntity<Object>(map, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        map.put("status", 1);
-        map.put("message", "删除成功");
-        return new ResponseEntity<Map>(map, HttpStatus.OK);
+        if (result.size() == 1) {
+            return new ResponseEntity<Object>(result.get(0), HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(result, HttpStatus.OK);
+    }
+
+    @ApiOperation("多个文件删除")
+    @RequestMapping(value = "/deleteBatch", method = RequestMethod.GET)
+    public ResponseEntity<Map> delete(@ApiParam("文件id数组") @RequestParam String... id) {
+        try {
+            this.fileService.delete(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+            return new ResponseEntity<Map>(errorResult(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<Map>(successResult(null, "删除成功"), HttpStatus.OK);
     }
 
     @ApiOperation("获取文件")

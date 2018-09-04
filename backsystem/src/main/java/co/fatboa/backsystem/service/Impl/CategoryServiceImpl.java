@@ -180,6 +180,7 @@ public class CategoryServiceImpl implements ICategoryService {
             this.delete(id);
         }
     }
+
     /**
      * 删除栏目的子级栏目自动升级
      *
@@ -270,13 +271,13 @@ public class CategoryServiceImpl implements ICategoryService {
             update.set("name", categoryDto.getName());
         }
         if (categoryDto.getRoute() != null) {
-            update.set("name", categoryDto.getRoute());
+            update.set("route", categoryDto.getRoute());
         }
         if (categoryDto.getShow() != null) {
-            update.set("name", categoryDto.getShow());
+            update.set("show", categoryDto.getShow());
         }
         if (categoryDto.getStyle() != null) {
-            update.set("name", categoryDto.getStyle());
+            update.set("style", categoryDto.getStyle());
         }
         this.categoryDao.update(query, update);
 
@@ -291,7 +292,6 @@ public class CategoryServiceImpl implements ICategoryService {
      * @return
      */
     public Query queryPackage(CategoryParam params) {
-
         Query query = new Query();
         Sort sort;
 
@@ -308,16 +308,20 @@ public class CategoryServiceImpl implements ICategoryService {
         if (params.getShow() != null) {
             criteria.and("show").is(params.getShow());
         }
+        if (params.getStyle() != null) {
+            criteria.and("style").is(params.getStyle());
+        }
 
-        if (params.getSortFiled() != null && params.getSortDirection() != null) {
-            if (params.getSortDirection().equals("asc")) {
-                sort = new Sort(Sort.Direction.ASC, params.getSortFiled());
+        if (params.getSortField() != null && params.getSortOrder() != null) {
+            if (params.getSortOrder().equals("asc")) {
+                sort = new Sort(Sort.Direction.ASC, params.getSortField());
                 query.with(sort);
-            } else if (params.getSortDirection().equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, params.getSortFiled());
+            } else if (params.getSortOrder().equals("desc")) {
+                sort = new Sort(Sort.Direction.DESC, params.getSortField());
                 query.with(sort);
             }
         }
+        query.addCriteria(criteria);
         return query;
     }
 

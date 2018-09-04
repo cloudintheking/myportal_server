@@ -11,28 +11,28 @@ import java.io.Serializable;
  */
 public class BaseQueryParam implements Serializable {
 
-    private String sortFiled;
+    private String sortField;
 
-    private String sortDirection;
+    private String sortOrder;
 
     private Integer pageIndex;
 
     private Integer pageSize;
 
-    public String getSortFiled() {
-        return sortFiled;
+    public String getSortField() {
+        return sortField;
     }
 
-    public void setSortFiled(String sortFiled) {
-        this.sortFiled = sortFiled;
+    public void setSortField(String sortField) {
+        this.sortField = sortField;
     }
 
-    public String getSortDirection() {
-        return sortDirection;
+    public String getSortOrder() {
+        return sortOrder;
     }
 
-    public void setSortDirection(String sortDirection) {
-        this.sortDirection = sortDirection;
+    public void setSortOrder(String sortOrder) {
+        this.sortOrder = sortOrder;
     }
 
     public Integer getPageIndex() {

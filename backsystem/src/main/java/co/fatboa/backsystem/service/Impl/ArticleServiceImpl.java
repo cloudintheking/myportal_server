@@ -59,9 +59,19 @@ public class ArticleServiceImpl implements IArticleService {
             }
             article.setCategory(category);
         }
+        if (article.getContent() != null) {
+            String noHtml = article.getContent().replaceAll("[\t\n]*<", "<")
+                    .replaceAll(">[\t\n]*", ">")
+                    .replaceAll("<.*?>", "")
+                    .replaceAll("&[a-z]{1,};", " ")
+                    .replaceAll("[ ]{1,}", " ");
+            String p = noHtml.substring(0, Math.min(100, noHtml.length()));
+            p += "...";
+            article.setPreview(p);
+        }
         article.setId(null);//防止前端误传id
         article.setDate(new Date());
-        this.articleDao.save(article);
+        article = this.articleDao.save(article);
         if (article.getCover() != null && !article.getCover().trim().isEmpty()) {
             this.mongoTemplate.upsert(Query.query(Criteria.where("_id").is(new ObjectId(article.getCover()))), new Update().set("use", true), "fs.files");//标记该文件被引用，用于垃圾文件清理
         }
@@ -185,12 +195,20 @@ public class ArticleServiceImpl implements IArticleService {
         }
         if (dto.getContent() != null) {
             update.set("content", dto.getContent());
+            String noHtml = dto.getContent().replaceAll("[\t\n]*<", "<")
+                    .replaceAll(">[\t\n]*", ">")
+                    .replaceAll("<.*?>", "")
+                    .replaceAll("&[a-z]{1,};", " ")
+                    .replaceAll("[ ]{1,}", " ");
+            String p = noHtml.substring(0, Math.min(100, noHtml.length()));
+            p += "...";
+            update.set("preview", p);
         }
         if (dto.getShow() != null) {
             update.set("show", dto.getShow());
         }
-        if (dto.getCover() != null) {
-            update.set("cover", dto.getCover());
+        if (dto.getCover() != null && !dto.getCover().trim().isEmpty()) {
+            update.set("cover", dto.getCover().trim());
             this.mongoTemplate.upsert(Query.query(Criteria.where("_id").is(new ObjectId(dto.getCover()))), new Update().set("use", true), "fs.files");//标记该文件被引用，用于垃圾文件清理
         }
         this.articleDao.update(query, update);
@@ -218,21 +236,39 @@ public class ArticleServiceImpl implements IArticleService {
         if (param.getShow() != null) {
             criteria.and("show").is(param.getShow());
         }
-        if (param.getStartDate() != null) {
+        if (param.getStartDate() != null && param.getEndDate() != null) {
+            criteria.and("date").gte(param.getStartDate()).lte(param.getEndDate());
+        } else if (param.getEndDate() != null) {
+            criteria.and("date").lte(param.getEndDate());
+        } else if (param.getStartDate() != null) {
             criteria.and("date").gte(param.getStartDate());
         }
-        if (param.getEndDate() != null) {
-            criteria.and("date").lte(param.getEndDate());
-        }
-        if (param.getSortDirection() != null && param.getSortFiled() != null) {
-            if (param.getSortDirection().equals("asc")) {
-                sort = new Sort(Sort.Direction.ASC, param.getSortFiled());
+        if (param.getSortOrder() != null && param.getSortField() != null) {
+            if (param.getSortOrder().equals("asc")) {
+                sort = new Sort(Sort.Direction.ASC, param.getSortField());
                 query.with(sort);
-            } else if (param.getSortDirection().equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, param.getSortFiled());
+            } else if (param.getSortOrder().equals("desc")) {
+                sort = new Sort(Sort.Direction.DESC, param.getSortField());
                 query.with(sort);
             }
         }
+        query.addCriteria(criteria);
         return query;
+    }
+
+    /**
+     * 根据文章id查询关联文章信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Article> findRelateArticles(String id) throws Exception {
+        Article article = this.articleDao.findById(id);
+        if (article == null) {
+            throw new Exception("不存在id=" + id + "的文章");
+        }
+        Query query = Query.query(Criteria.where("category.$id").is(new ObjectId(article.getCategory().getId())));
+        return this.articleDao.findAll(query);
     }
 }

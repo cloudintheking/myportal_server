@@ -21,12 +21,12 @@ import java.util.Map;
  */
 public interface IFileService {
     /**
-     * 上传文件
+     * 多文件上传
      *
-     * @param file
+     * @param files
      * @return
      */
-    List<Map> save(HttpServletRequest request, MultipartFile... file) throws IOException;
+    List<Map> save(HttpServletRequest request, MultipartFile... files) throws IOException;
 
     /**
      * 查询单个文件

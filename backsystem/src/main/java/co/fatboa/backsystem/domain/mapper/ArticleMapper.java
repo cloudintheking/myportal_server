@@ -22,6 +22,7 @@ public interface ArticleMapper {
             @Mapping(target = "id", source = "article.id"),
             @Mapping(target = "title", source = "article.title"),
             @Mapping(target = "content", source = "article.content"),
+            @Mapping(target = "preview", source = "article.preview"),
             @Mapping(target = "cover", source = "article.cover"),
             @Mapping(target = "date", source = "article.date"),
             @Mapping(target = "show", source = "article.show"),
@@ -33,6 +34,7 @@ public interface ArticleMapper {
             @Mapping(target = "id", source = "dto.id"),
             @Mapping(target = "title", source = "dto.title"),
             @Mapping(target = "content", source = "dto.content"),
+            @Mapping(target = "preview", source = "dto.preview"),
             @Mapping(target = "cover", source = "dto.cover"),
             @Mapping(target = "date", source = "dto.date"),
             @Mapping(target = "show", source = "dto.show"),
@@ -40,7 +42,7 @@ public interface ArticleMapper {
     })
     Article to(ArticleDto dto);
 
-    List<ArticleDto> from(List<Article> articles);
+    List<ArticleDto> fromList(List<Article> articles);
 
-    List<Article> to(List<ArticleDto> dtos);
+    List<Article> toList(List<ArticleDto> dtos);
 }

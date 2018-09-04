@@ -4,6 +4,9 @@ import co.fatboa.backsystem.domain.dto.ArticleDto;
 import co.fatboa.backsystem.domain.entity.Article;
 import co.fatboa.backsystem.domain.params.ArticleParam;
 import co.fatboa.core.Service.IBaseService;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
  * @Auther: hl
@@ -13,5 +16,12 @@ import co.fatboa.core.Service.IBaseService;
  * @Version 1.0
  */
 public interface IArticleService extends IBaseService<Article, ArticleDto, ArticleParam, String> {
+    /**
+     * 根据文章id查询关联文章信息
+     *
+     * @param id
+     * @return
+     */
+    List<Article> findRelateArticles(String id) throws Exception;
 
 }

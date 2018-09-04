@@ -2,6 +2,7 @@ package co.fatboa.backsystem.restcontroller;
 
 import co.fatboa.backsystem.domain.dto.LinkDto;
 import co.fatboa.backsystem.domain.entity.Link;
+import co.fatboa.backsystem.domain.mapper.LinkMapper;
 import co.fatboa.backsystem.domain.params.LinkParam;
 import co.fatboa.backsystem.service.ILinkService;
 import co.fatboa.core.restcontroller.BaseController;
@@ -34,6 +35,8 @@ public class LinkRestController extends BaseController<Link> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ILinkService linkService;
+    @Autowired
+    private LinkMapper linkMapper;
 
     @ApiOperation("新增链接")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -61,6 +64,7 @@ public class LinkRestController extends BaseController<Link> {
         Page<Link> links = this.linkService.findByPage(param);
         return new ResponseEntity<Map>(pageResult(links), HttpStatus.OK);
     }
+
     @ApiOperation("根据id查询")
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
     public ResponseEntity<Map> findById(@RequestParam(required = true) @ApiParam("链接id") String id) {
@@ -72,9 +76,10 @@ public class LinkRestController extends BaseController<Link> {
             logger.error(e.getMessage());
             return new ResponseEntity<Map>(errorResult("查询失败"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Map>(successResult(link, "查询成功"), HttpStatus.OK);
+        return new ResponseEntity<Map>(successResult(this.linkMapper.from(link), "查询成功"), HttpStatus.OK);
     }
-    @ApiOperation("更新首页展区")
+
+    @ApiOperation("更新链接")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseEntity<Map> update(@RequestBody @ApiParam("链接更新参数") LinkDto dto) {
         try {
@@ -86,11 +91,12 @@ public class LinkRestController extends BaseController<Link> {
         }
         return new ResponseEntity<Map>(successResult(dto, "更新成功"), HttpStatus.OK);
     }
-    @ApiOperation("删除")
+
+    @ApiOperation("删除链接")
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public ResponseEntity<Map> delete(@RequestParam("链接可变id") String... ids) {
+    public ResponseEntity<Map> delete(@RequestParam("链接可变id") String... id) {
         try {
-            this.linkService.delete(ids);
+            this.linkService.delete(id);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("该id:" + e.getMessage() + "不存在,停止删除");

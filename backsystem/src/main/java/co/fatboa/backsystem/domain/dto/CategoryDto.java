@@ -14,7 +14,7 @@ public class CategoryDto {
     private String id; //栏目ID
     private String name; //栏目名称
     private Integer level; //栏目等级
-    private String style; //栏目样式
+    private Integer style; //栏目样式
     private String route;// 路由
     private Boolean show; //是否显示 1：显示 0：不显示
     private String parent; //父级栏目id
@@ -42,11 +42,11 @@ public class CategoryDto {
         this.level = level;
     }
 
-    public String getStyle() {
+    public Integer getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(Integer style) {
         this.style = style;
     }
 

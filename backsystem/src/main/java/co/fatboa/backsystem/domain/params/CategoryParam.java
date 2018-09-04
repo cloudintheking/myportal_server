@@ -18,9 +18,12 @@ public class CategoryParam extends BaseQueryParam {
     @ApiModelProperty("栏目名称")
     private String name;
     @ApiModelProperty("栏目等级")
-    private String level;
+    private Integer level;
+    @ApiModelProperty("栏目样式")
+    private Integer style;
     @ApiModelProperty("显示状态")
-    private String show;
+    private Boolean show;
+
 
     public String getId() {
         return id;
@@ -38,19 +41,27 @@ public class CategoryParam extends BaseQueryParam {
         this.name = name;
     }
 
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public String getShow() {
+    public Boolean getShow() {
         return show;
     }
 
-    public void setShow(String show) {
+    public void setShow(Boolean show) {
         this.show = show;
+    }
+
+    public Integer getStyle() {
+        return style;
+    }
+
+    public void setStyle(Integer style) {
+        this.style = style;
     }
 }

@@ -31,8 +31,8 @@ public class OptionRestController extends BaseController {
     private IOptionService optionService;
 
     @ApiOperation("获取配置")
-    @RequestMapping(value = "/find", method = RequestMethod.GET)
-    public ResponseEntity<Map> find() {
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public ResponseEntity<Map> get() {
         return new ResponseEntity<Map>(successResult(this.optionService.getOption(), "获取成功"), HttpStatus.OK);
     }
 

@@ -102,7 +102,7 @@ public class ZoneServiceImpl implements IZoneService {
             pageSize = params.getPageSize();
         }
         Pageable pageable = new PageRequest(pageIndex, pageSize);
-        long count = this.categoryDao.count(query);
+        long count = this.zoneDao.count(query);
         List<Zone> zones = this.zoneDao.findAll(query.with(pageable));
         return new PageImpl<Zone>(zones, pageable, count);
     }
@@ -197,7 +197,7 @@ public class ZoneServiceImpl implements IZoneService {
             criteria.and("id").is(new ObjectId(param.getId()));
         }
         if (param.getCategory() != null && !param.getCategory().trim().isEmpty()) {
-            criteria.and("parent.$id").is(new ObjectId(param.getCategory().trim()));
+            criteria.and("category.$id").is(new ObjectId(param.getCategory().trim()));
         }
         if (param.getName() != null) {
             criteria.and("name").regex(param.getName());
@@ -208,15 +208,16 @@ public class ZoneServiceImpl implements IZoneService {
         if (param.getStyle() != null) {
             criteria.and("style").is(param.getStyle());
         }
-        if (param.getSortDirection() != null && param.getSortFiled() != null) {
-            if (param.getSortDirection().equals("asc")) {
-                sort = new Sort(Sort.Direction.ASC, param.getSortFiled());
+        if (param.getSortOrder() != null && param.getSortField() != null) {
+            if (param.getSortOrder().equals("asc")) {
+                sort = new Sort(Sort.Direction.ASC, param.getSortField());
                 query.with(sort);
-            } else if (param.getSortDirection().equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, param.getSortFiled());
+            } else if (param.getSortOrder().equals("desc")) {
+                sort = new Sort(Sort.Direction.DESC, param.getSortField());
                 query.with(sort);
             }
         }
+        query.addCriteria(criteria);
         return query;
     }
 }

@@ -61,7 +61,12 @@ public class ArticleRestController extends BaseController<Article> {
         Page<Article> articles = this.articleService.findByPage(param);
         return new ResponseEntity<Map>(pageResult(articles), HttpStatus.OK);
     }
-
+    @ApiOperation("匿名分页查询")
+    @RequestMapping(value = "anon/findByPage", method = RequestMethod.POST)
+    public ResponseEntity<Map> findByPagenon(@RequestBody @ApiParam("首页展区查询参数") ArticleParam param) {
+        Page<Article> articles = this.articleService.findByPage(param);
+        return new ResponseEntity<Map>(pageResult(articles), HttpStatus.OK);
+    }
     @ApiOperation("根据id查询")
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
     public ResponseEntity<Map> findById(@RequestParam(required = true) @ApiParam("文章id") String id) {
@@ -74,6 +79,20 @@ public class ArticleRestController extends BaseController<Article> {
             return new ResponseEntity<Map>(errorResult("查询失败"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<Map>(successResult(article, "查询成功"), HttpStatus.OK);
+    }
+
+    @ApiOperation("查询关联文章")
+    @RequestMapping(value = "/findRelatedArticles", method = RequestMethod.GET)
+    public ResponseEntity<Map> findRelatedArticles(@RequestParam(required = true) @ApiParam("文章id") String id) {
+        List<Article> articles = null;
+        try {
+            articles = this.articleService.findRelateArticles(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+            return new ResponseEntity<Map>(errorResult("查询关联文章失败"), HttpStatus.OK);
+        }
+        return new ResponseEntity<Map>(successResult(articles, "查询关联文章成功"), HttpStatus.OK);
     }
 
     @ApiOperation("更新首页展区")
@@ -91,9 +110,9 @@ public class ArticleRestController extends BaseController<Article> {
 
     @ApiOperation("删除")
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public ResponseEntity<Map> delete(@RequestParam String... ids) {
+    public ResponseEntity<Map> delete(@RequestParam String... id) {
         try {
-            this.articleService.delete(ids);
+            this.articleService.delete(id);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("该id:" + e.getMessage() + "不存在,停止删除");

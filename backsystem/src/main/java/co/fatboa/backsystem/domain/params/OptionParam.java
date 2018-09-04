@@ -18,6 +18,8 @@ public class OptionParam  {
     private String deleteImg;
     @ApiModelProperty("新增顶部图片id")
     private String addImg;
+    @ApiModelProperty("替换顶部图片id")
+    private String editImg;
     @ApiModelProperty("公司介绍")
     private String about;
     @ApiModelProperty("公司联系")
@@ -71,5 +73,13 @@ public class OptionParam  {
 
     public void setCopyright(String copyright) {
         this.copyright = copyright;
+    }
+
+    public String getEditImg() {
+        return editImg;
+    }
+
+    public void setEditImg(String editImg) {
+        this.editImg = editImg;
     }
 }

@@ -18,7 +18,7 @@ public class ZoneParam extends BaseQueryParam {
     @ApiModelProperty("展区名")
     private String name;
     @ApiModelProperty("展区样式")
-    private String style;
+    private Integer style;
     @ApiModelProperty("显示状态")
     private Boolean show;
     @ApiModelProperty("关联栏目id")
@@ -40,11 +40,11 @@ public class ZoneParam extends BaseQueryParam {
         this.name = name;
     }
 
-    public String getStyle() {
+    public Integer getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(Integer style) {
         this.style = style;
     }
 

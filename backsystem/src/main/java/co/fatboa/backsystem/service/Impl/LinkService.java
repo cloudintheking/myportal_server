@@ -155,10 +155,11 @@ public class LinkService implements ILinkService {
         }
         Update update = new Update();
         if (dto.getGroup() != null && !dto.getGroup().trim().isEmpty()) {
-            if (this.linkGroupDao.findById(dto.getGroup().trim()) == null) {
+            LinkGroup group = this.linkGroupDao.findById(dto.getGroup().trim());
+            if (group == null) {
                 throw new Exception("不存在id=" + dto.getGroup().trim() + "的链接组id，无法更新");
             }
-            update.set("group.$id", dto.getGroup().trim());
+            update.set("group", group);
         } else {
             throw new Exception("更新链接时,关联链接组id不能为空");
         }
@@ -190,15 +191,16 @@ public class LinkService implements ILinkService {
         if (param.getName() != null) {
             criteria.and("name").regex(param.getName());
         }
-        if (param.getSortDirection() != null && param.getSortFiled() != null) {
-            if (param.getSortDirection().equals("asc")) {
-                sort = new Sort(Sort.Direction.ASC, param.getSortFiled());
+        if (param.getSortOrder() != null && param.getSortField() != null) {
+            if (param.getSortOrder().equals("asc")) {
+                sort = new Sort(Sort.Direction.ASC, param.getSortField());
                 query.with(sort);
-            } else if (param.getSortDirection().equals("desc")) {
-                sort = new Sort(Sort.Direction.DESC, param.getSortFiled());
+            } else if (param.getSortOrder().equals("desc")) {
+                sort = new Sort(Sort.Direction.DESC, param.getSortField());
                 query.with(sort);
             }
         }
+        query.addCriteria(criteria);
         return query;
     }
 }
