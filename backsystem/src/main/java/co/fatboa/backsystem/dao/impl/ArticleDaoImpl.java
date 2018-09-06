@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @Auther: hl
  * @Date: 2018/9/1 07:45
- * @Description: 文章类数据访问接口实现类
+ * @Description: 文章类数据访问接口实现
  * @Modified By:
  * @Version 1.0
  */

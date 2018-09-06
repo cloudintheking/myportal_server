@@ -25,10 +25,10 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<artifactId>org.mapstruct</artifactId>-->
-                    <!--<groupId>mapstruct</groupId>-->
-                <!--</exclusion>-->
+            <!--<exclusion>-->
+            <!--<artifactId>org.mapstruct</artifactId>-->
+            <!--<groupId>mapstruct</groupId>-->
+            <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>
         <dependency>
@@ -47,7 +47,7 @@
         </dependency>
         <dependency>
             <groupId>co.fatboa</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>base</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

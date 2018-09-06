@@ -1,5 +1,6 @@
 package co.fatboa.filesystem.service.impl;
 
+import co.fatboa.core.utils.MD5Util;
 import co.fatboa.filesystem.dao.IFileDao;
 import co.fatboa.filesystem.domain.params.FileParams;
 import co.fatboa.filesystem.service.IFileService;
@@ -51,7 +52,7 @@ public class FileServiceImpl implements IFileService {
         GridFSFile gfile;
         for (MultipartFile file : files) {
             Map<String, Object> map = new HashMap<>();
-//            String md5 = FileUtils.getFileMD5(file.getInputStream());
+//            String md5 = MD5Util.getFileMD5(file.getInputStream());//取盐
 //            GridFSDBFile gb = this.fileDao.findOne(Query.query(Criteria.where("md5").is(md5)));
 //            if (gb == null) { // 文件不存在保存文件
 //                gfile = this.fileDao.store(file.getInputStream(), file.getOriginalFilename());

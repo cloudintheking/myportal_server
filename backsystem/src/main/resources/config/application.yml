@@ -2,6 +2,13 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/test
+  rabbitmq:
+    username: guest #用户名
+    password: guest #密码
+    host: localhost #服务器ip
+    virtual-host: / #虚拟空间地址
+    port: 5672  #rabbit服务器默认端口
+    publisher-confirms: true #配置发布消息确认回调
 server:
   port: 8881
   compression:

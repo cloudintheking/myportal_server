@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * @Auther: hl
  * @Date: 2018/9/2 11:58
- * @Description:
+ * @Description: 文章服务接口实现
  * @Modified By:
  * @Version 1.0
  */
