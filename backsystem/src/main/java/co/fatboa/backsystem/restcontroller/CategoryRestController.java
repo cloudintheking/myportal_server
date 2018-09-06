@@ -50,7 +50,7 @@ public class CategoryRestController extends BaseController<Category> {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
-            return new ResponseEntity<Map>(errorResult("查找失败"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map>(errorResult("查找失败"), HttpStatus.OK);
         }
         return new ResponseEntity<Map>(successResult(category, "查找成功"), HttpStatus.OK);
     }
@@ -86,7 +86,7 @@ public class CategoryRestController extends BaseController<Category> {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
-            return new ResponseEntity<Map>(errorResult("新增失败"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map>(errorResult("新增失败"), HttpStatus.OK);
         }
         return new ResponseEntity<Map>(successResult(dto, "新增成功"), HttpStatus.OK);
     }
@@ -99,7 +99,7 @@ public class CategoryRestController extends BaseController<Category> {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
-            return new ResponseEntity<Map>(errorResult("更新失败"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map>(errorResult("更新失败"), HttpStatus.OK);
         }
         return new ResponseEntity<Map>(successResult(null, "更新成功"), HttpStatus.OK);
     }
@@ -116,7 +116,7 @@ public class CategoryRestController extends BaseController<Category> {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("该id:" + e.getMessage() + "不存在,停止删除");
-            return new ResponseEntity<Map>(errorResult("删除失败"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map>(errorResult("删除失败"), HttpStatus.OK);
         }
         return new ResponseEntity<Map>(successResult(null, "删除成功"), HttpStatus.OK);
     }

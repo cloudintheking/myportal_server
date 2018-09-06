@@ -44,7 +44,7 @@ public class OptionRestController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
-            return new ResponseEntity<Map>(errorResult("更新配置失败"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map>(errorResult("更新配置失败"), HttpStatus.OK);
         }
         return new ResponseEntity<Map>(successResult(null, "更新配置成功"), HttpStatus.OK);
     }

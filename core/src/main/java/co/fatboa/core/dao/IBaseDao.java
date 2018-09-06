@@ -1,6 +1,5 @@
 package co.fatboa.core.dao;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 

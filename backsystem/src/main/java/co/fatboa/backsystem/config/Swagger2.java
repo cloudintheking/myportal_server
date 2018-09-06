@@ -27,7 +27,7 @@ public class Swagger2 {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("文件系统API")
+                .groupName("cms系统API")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))    // 这里采用包含注解的方式来确定要显示的接口
@@ -37,9 +37,9 @@ public class Swagger2 {
     }
 
     private ApiInfo apiInfo() {
-        Contact contact = new Contact("hl", "https://cloudintheking.github.io", "huangkk@gmail.com");
+        Contact contact = new Contact("hl", "https://github.com/Cloudintheking/myportal_server", "huangkk@gmail.com");
         return new ApiInfoBuilder()
-                .title("个人项目 - 文件系统API文档")
+                .title("个人项目 - cms系统API文档")
                 .contact(contact)
                 .version("1.0")
                 .build();

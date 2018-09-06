@@ -40,7 +40,7 @@ public class LinkGroupRestController extends BaseController<LinkGroup> {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
-            return new ResponseEntity<Map>(errorResult(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map>(errorResult(e.getMessage()), HttpStatus.OK);
         }
         return new ResponseEntity<Map>(successResult(group, "新增链接成功"), HttpStatus.OK);
     }
@@ -65,7 +65,7 @@ public class LinkGroupRestController extends BaseController<LinkGroup> {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("不存在id=" + e.getMessage() + "的链接组，删除失败");
-            return new ResponseEntity<Map>(errorResult("删除失败"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map>(errorResult("删除失败"), HttpStatus.OK);
         }
         return new ResponseEntity<Map>(successResult(null, "删除成功"), HttpStatus.OK);
     }
