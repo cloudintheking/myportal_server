@@ -14,3 +14,6 @@ server:
     min-response-size: 2048 #响应内容大于{min-response-size}字节时，才会压缩，默认：2048字节
 swagger:
   enable: true
+jasypt:
+  encryptor:
+    password: cross

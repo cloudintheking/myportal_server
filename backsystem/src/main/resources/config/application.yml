@@ -3,8 +3,8 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/test
   rabbitmq:
-    username: guest #用户名
-    password: guest #密码
+    username: ENC(Ore1c39ToJzASdjY4A8LGw==) #用户名( 明文guest)
+    password: ENC(Ore1c39ToJzASdjY4A8LGw==) #密码(明文guest)
     host: localhost #服务器ip
     virtual-host: / #虚拟空间地址
     port: 5672  #rabbit服务器默认端口
@@ -17,3 +17,6 @@ server:
     min-response-size: 2048 #响应内容大于{min-response-size}字节时，才会压缩，默认：2048字节
 swagger:
   enable: true
+jasypt:
+  encryptor:
+    password: cross
