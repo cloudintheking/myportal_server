@@ -2,7 +2,8 @@
 **门户网站服务端**
 
 
-##项目结构：
+##项目结构
+
 - backsystem: cms系统模块，提供门户所需的restful API，同时也是rabbitmq生产者模块
 - filesystem: 文件系统模块，提供文件上传下载的restful API
 - base: 基础模块，提供公共基类、接口、工具等
@@ -10,6 +11,7 @@
 - rabbitmq-consumer: rabbitmq消费者模块
 
 ##环境
+
 - windows 10
 - jdk 1.8.0_181
 - erlang 20.1
@@ -29,5 +31,7 @@
 
 >另外项目使用jasypt加密了配置文件
 
+
 ##后续
+
 最近忙着刷题，以后有时间我会把shiro也整合进来
