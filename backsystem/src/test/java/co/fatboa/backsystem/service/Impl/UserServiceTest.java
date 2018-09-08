@@ -77,6 +77,10 @@ public class UserServiceTest {
 
     /**
      * 加密解密测试
+     * 你也可以使用java命令地方式进行加密解密
+     * 下载jasypt-1.9.2.jar
+     * 运行 java -cp jasypt-1.9.2.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input=guest password=cross algorithm=PBEWithMD5AndDES 进行加密
+     * 运行 java -cp jasypt-1.9.2.jar org.jasypt.intf.cli.JasyptPBEStringDecryptionCLI input=Ore1c39ToJzASdjY4A8LGw== password=cross algorithm=PBEWithMD5AndDES 进行解密
      */
     @Test
     public void encryptPwd() {

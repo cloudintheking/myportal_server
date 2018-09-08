@@ -9,14 +9,15 @@
 - rabbitmq-common: rabbitmq的公共配置模块
 - rabbitmq-consumer: rabbitmq消费者模块
 
-## 环境
-- windows 10
+## 环境（windows）
 - jdk 1.8.0_181
 - erlang 20.1
 - rabbitmq 3.7.3
 - mongodb 3.6
 - maven 3.5.4
->环境可以跟我的不一样，但一定得都有，否则代码拉下来也运行不了。
+
+>上述环境请确保你的系统中都安装了。
+>>如果上述环境你一个也不想装😥，但你装了`docker`，ok，打开终端进入工程根目录下，run `docker-compose up`,愉快玩耍吧😀
 
 ## 运行
 如果环境都安装无误的话
