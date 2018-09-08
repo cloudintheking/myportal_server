@@ -31,7 +31,7 @@
         <java.version>1.8</java.version>
         <org.mapstruct.version>1.1.0.Final</org.mapstruct.version>
         <!--<org.mapstruct.version>1.2.0.CR1</org.mapstruct.version>-->
-        <jasypt.version>1.14</jasypt.version>
+        <jasypt.version>1.8</jasypt.version>
         <fastjson.version>1.2.46</fastjson.version>
         <swagger2.version>2.7.0</swagger2.version>
     </properties>

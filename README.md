@@ -27,7 +27,11 @@
 
 >rabbitmaq的消息打印在console里，暂时只写了用户注册队列。
 
->另外项目使用jasypt加密了配置文件
+>项目使用jasypt加密配置文件,`application.yml`中参数`jasypt.encryptor.password`，可以看到值是cross，容易泄露。
+
+>为了防止salt(盐)泄露,反解出密码.可以在项目部署的时候使用命令传入salt(盐)值
+
+>`java -jar -Djasypt.encryptor.password=xxxxx yyyy.jar`
 
 
 ## 后续

@@ -8,4 +8,4 @@ spring:
     publisher-confirms: true #配置发布消息确认回调
 jasypt:
   encryptor:
-    password: cross
+    password: cross #salt

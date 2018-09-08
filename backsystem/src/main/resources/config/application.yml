@@ -19,4 +19,4 @@ swagger:
   enable: true
 jasypt:
   encryptor:
-    password: cross
+    password: cross #salt

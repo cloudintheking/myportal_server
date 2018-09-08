@@ -6,6 +6,7 @@ import co.fatboa.backsystem.restcontroller.UserRestController;
 import co.fatboa.backsystem.service.IUserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.jasypt.encryption.StringEncryptor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,6 +45,8 @@ import java.net.URI;
 public class UserServiceTest {
     @Autowired
     private MockMvc mockMvc; //mockmvc测试对象
+    @Autowired
+    StringEncryptor stringEncryptor;
 
     @Before
     public void before() {
@@ -70,5 +73,19 @@ public class UserServiceTest {
                 .andReturn()//返回mvcresult
                 .getResponse().getContentAsString();//转换成字符串打印
         System.out.println(res);
+    }
+
+    /**
+     * 加密解密测试
+     */
+    @Test
+    public void encryptPwd() {
+        String encryptResult = stringEncryptor.encrypt("guest");
+        System.out.println("==================");
+        System.out.println(encryptResult);
+        System.out.println("==================");
+        String decryptResult = stringEncryptor.decrypt(encryptResult );
+        System.out.println(decryptResult);
+        System.out.println("==================");
     }
 }
