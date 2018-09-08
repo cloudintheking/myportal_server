@@ -1,0 +1,34 @@
+version: "3"
+  services:
+    backsystem:
+      build: ./backsystem/
+      ports:
+      - "8081:8081"
+      links:
+      - rabbitmq
+      networks:
+      - back-tier
+
+    filesystem:
+      build: ./filesystem
+      ports:
+      - "8082:8082"
+      networks:
+      - back-tier
+
+    mongodb:
+      image: bitnami/mongodb:latest
+      volumns:
+      - /i/mongo/data:/bitnami/mongodb
+      networks:
+      - back-tier
+
+    rabbitmq:
+      image: rabbitmq
+      expose:
+      - "5672"
+      ports:
+      - "15672:15672"
+
+networks:
+  back-tier:
