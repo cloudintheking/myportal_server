@@ -15,4 +15,4 @@ ADD ./target/backsystem-0.0.1-SNAPSHOT.jar /app
 EXPOSE 8081
 
 # 运行项目
-CMD ["java","-jar","-Dfile.encoding=UTF-8","-Djasypt.encryptor.password=$JASYPT_PASSWORD","base-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","-Dfile.encoding=UTF-8","-Djasypt.encryptor.password=$JASYPT_PASSWORD","backsystem-0.0.1-SNAPSHOT.jar"]

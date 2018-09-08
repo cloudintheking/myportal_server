@@ -11,4 +11,4 @@ ADD ./target/filesystem-0.0.1-SNAPSHOT.jar /app
 EXPOSE 8082
 
 # 运行项目
-CMD ["java","-jar","-Dfile.encoding=UTF-8","base-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","-Dfile.encoding=UTF-8","filesystem-0.0.1-SNAPSHOT.jar"]

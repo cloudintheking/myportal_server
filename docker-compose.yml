@@ -29,6 +29,8 @@ version: "3"
       - "5672"
       ports:
       - "15672:15672"
+      networks:
+      - back-tier
 
 networks:
   back-tier:
